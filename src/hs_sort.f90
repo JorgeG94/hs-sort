@@ -7,9 +7,40 @@ module hs_sort
   public :: hsort, isort, qsort
   public :: is_sorted
 
+  interface isort 
+      module procedure isort
+    end interface isort
+  interface qsort
+      module procedure qsort
+    end interface qsort
+  interface hsort
+      module procedure hsort
+    end interface hsort
+
 
 
 contains 
+   subroutine isort(list, key)
+    integer, intent(inout) :: list(:)
+    real(dp), intent(in) :: key(:)
+
+    if( .not. is_sorted(list)) error stop "List is not sorted!"
+    call isort_pure(list, key)
+    end subroutine isort
+    subroutine qsort(list, key)
+    integer, intent(inout) :: list(:)
+    real(dp), intent(in) :: key(:)
+
+    if( .not. is_sorted(list)) error stop "List is not sorted!"
+    call qsort_pure(list, key)
+    end subroutine qsort
+
+    subroutine hsort(list, key)
+    integer, intent(inout) :: list(:)
+    real(dp), intent(in) :: key(:)
+    if( .not. is_sorted(list)) error stop "List is not sorted!"
+    call hsort_pure(list, key)
+    end subroutine hsort
 
    pure function is_sorted(array, reverse) result(sorted)
       integer, intent(in) :: array(:)
@@ -45,7 +76,7 @@ contains
 
    end function is_sorted
 
-subroutine hsort(list, key)
+pure subroutine hsort_pure(list, key)
 !     ORDER INTEGERS STORES IN 'LIST' IN ASCENDING SEQUENCE OF THEIR KEY
 !     VALUES STORED IN KEY
 !     
@@ -74,8 +105,6 @@ subroutine hsort(list, key)
   ll = 1
   lr = n
   stktop = 0
-
-  if(.not. is_sorted(list)) error stop "List is not sorted!"
 
   quicksort_done = .false.
 
@@ -164,9 +193,9 @@ subroutine hsort(list, key)
      list(j) = k
   end do
 
-end subroutine hsort
+end subroutine hsort_pure
 
-subroutine isort(list, key)
+pure subroutine isort_pure(list, key)
 !     ORDER INTEGERS STORES IN 'LIST' IN ASCENDING SEQUENCE OF THEIR KEY
 !     VALUES STORED IN KEY
 !     
@@ -185,7 +214,6 @@ subroutine isort(list, key)
   real(dp) :: value
 
   ! Find the index with the minimum key and move it to the front
-  if(.not. is_sorted(list)) error stop "List is not sorted!"
   n = size(list, 1)
   j = 1
   k = list(1)
@@ -211,9 +239,9 @@ subroutine isort(list, key)
      list(j) = k
   end do
 
-end subroutine isort
+end subroutine isort_pure
 
-subroutine qsort(list, key)
+subroutine qsort_pure(list, key)
 !     ORDER INTEGERS STORES IN 'LIST' IN ASCENDING SEQUENCE OF THEIR KEY
 !     VALUES STORED IN KEY
 !     
@@ -234,7 +262,6 @@ subroutine qsort(list, key)
   real(dp) :: guess
   logical :: done
 
-  if(.not. is_sorted(list)) error stop "List is not sorted!"
   ll = 1
   lr = size(list, 1)
   stktop = 0
@@ -299,7 +326,7 @@ subroutine qsort(list, key)
      end if
   end do
 
-end subroutine qsort
+end subroutine qsort_pure
 
 
 
