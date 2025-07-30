@@ -1,4 +1,4 @@
-program pic_tester
+program tester
    use, intrinsic :: iso_fortran_env, only: error_unit
    use testdrive, only: run_testsuite, new_testsuite, testsuite_type, &
    & select_suite, run_selected, get_argument
@@ -15,8 +15,7 @@ program pic_tester
    stat = 0
    allocate (testsuites(ntest_suites))
    ! here you add another test suite to the array
-   testsuites(1) = new_testsuite("base_utils", collect_suite1)
-   ! testsuite(2) = new_testsuite("name_of_file_without_test", name_of_collect_subroutine)
+   testsuites(1) = new_testsuite("sort", collect_suite1)
 
    call get_argument(1, suite_name)
    call get_argument(2, test_name)
@@ -53,4 +52,4 @@ program pic_tester
       error stop 1
    end if
 
-end program pic_tester
+end program tester
