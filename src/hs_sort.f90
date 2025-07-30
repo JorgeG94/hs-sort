@@ -46,6 +46,20 @@ contains
    end function is_sorted
 
 subroutine hsort(list, key)
+!     ORDER INTEGERS STORES IN 'LIST' IN ASCENDING SEQUENCE OF THEIR KEY
+!     VALUES STORED IN KEY
+!     
+!     list - array of integers to be sorted
+!     key  - array of real numbers used as keys for sorting
+!
+!     NOTES:
+!
+!     USES QUICKSORT ALGORITHM, EXCEPT FOR SEGMENTS OF THE LIST SHORTER
+!     THAN 'NCUT' FOR WHICH A SECOND PASS INSERTION SORT IS USED. 'NCUT'
+!     SHOULD BE SET TO AN INTEGER OF THE ORDER OF 12 FOR MAXIMUM
+!     EFFICIENCY, BUT MAY BE SYSTEM DEPENDENT.
+!
+!     ROUTINE SORTS LISTS UP TO LENGTH 2**MAXSTK
   implicit none
   integer, intent(inout) :: list(:)
   real(dp), intent(in) :: key(:)
@@ -153,6 +167,15 @@ subroutine hsort(list, key)
 end subroutine hsort
 
 subroutine isort(list, key)
+!     ORDER INTEGERS STORES IN 'LIST' IN ASCENDING SEQUENCE OF THEIR KEY
+!     VALUES STORED IN KEY
+!     
+!     list - array of integers to be sorted
+!     key  - array of real numbers used as keys for sorting
+!
+!     NOTES:
+!     USES INSERTION SORT - EFFICIENT ONLY FOR 'N' VALUES LESS THAN
+!     ABOUT 12 (ALTHOUGH MAY BE SYSTEM DEPENDENT)
   implicit none
   integer, intent(inout) :: list(:)
   real(dp), intent(in) :: key(:)
@@ -191,6 +214,16 @@ subroutine isort(list, key)
 end subroutine isort
 
 subroutine qsort(list, key)
+!     ORDER INTEGERS STORES IN 'LIST' IN ASCENDING SEQUENCE OF THEIR KEY
+!     VALUES STORED IN KEY
+!     
+!     list - array of integers to be sorted
+!     key  - array of real numbers used as keys for sorting
+!
+!     USES QUICKSORT ALGORITHM, EFFICIENT FOR 'N' VALUES GREATHER THAN
+!     ABOUT 12 (ALTHOUGH MAY BE SYSTEM DEPENDENT)
+!
+!     ROUTINE SORTS LISTS UP TO LENGTH 2**MAXSTK
   implicit none
   integer, intent(inout) :: list(:)
   real(dp), intent(in) :: key(:)
