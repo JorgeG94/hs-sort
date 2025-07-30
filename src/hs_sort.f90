@@ -12,12 +12,12 @@ contains
 subroutine hsort(list, key)
   implicit none
   integer, intent(inout) :: list(:)
-  double precision, intent(in) :: key(:)
+  real(dp), intent(in) :: key(:)
 
   integer, parameter :: maxstk = 32, ncut = 12
   integer :: ll, lr, lm, nl, nr, ltemp, stktop, i, j, k
   integer :: lstack(maxstk), rstack(maxstk)
-  double precision :: guess, value
+  real(dp) :: guess, value
   logical :: quicksort_done
   integer :: n 
   n = size(list, 1)
@@ -117,11 +117,11 @@ end subroutine hsort
 subroutine isort(list, key)
   implicit none
   integer, intent(inout) :: list(:)
-  double precision, intent(in) :: key(:)
+  real(dp), intent(in) :: key(:)
 
   integer :: n
   integer :: i, j, k
-  double precision :: value
+  real(dp) :: value
 
   ! Find the index with the minimum key and move it to the front
   n = size(list, 1)
@@ -154,12 +154,12 @@ end subroutine isort
 subroutine qsort(list, key)
   implicit none
   integer, intent(inout) :: list(:)
-  double precision, intent(in) :: key(:)
+  real(dp), intent(in) :: key(:)
 
   integer, parameter :: maxstk = 32
   integer :: ll, lr, lm, nl, nr, ltemp, stktop
   integer :: lstack(maxstk), rstack(maxstk)
-  double precision :: guess
+  real(dp) :: guess
   logical :: done
 
   ll = 1
@@ -231,4 +231,4 @@ end subroutine qsort
 
 
 
-end module
+end module hs_sort
