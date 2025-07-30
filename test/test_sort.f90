@@ -13,12 +13,13 @@ contains
    subroutine collect_suite1(testsuite)
       !> Collection of tests
       type(unittest_type), allocatable, intent(out) :: testsuite(:)
-      integer, parameter :: ntests = 3
+      integer, parameter :: ntests = 4
 
       allocate (testsuite(ntests))
       testsuite(1) = new_unittest("isort", test_isort)
       testsuite(2) = new_unittest("qsort", test_qsort)
       testsuite(3) = new_unittest("hsort", test_hsort)
+      testsuite(4) = new_unittest("unsorted", test_unsorted_list)
 
    end subroutine collect_suite1
 
@@ -76,5 +77,24 @@ contains
       if (allocated(error)) return
 
    end subroutine test_hsort
+
+   subroutine test_unsorted_list(error)
+      type(error_type), allocatable, intent(out) :: error
+      integer, allocatable :: indices(:)
+      integer, parameter :: length = 10
+      integer :: i 
+      allocate(indices(length))
+      indices = [(i, i=length, 1, -1)]
+
+
+      call check(error, is_sorted(indices), .false.)
+      if (allocated(error)) return
+
+      indices = [(i,i=1,length)]
+      call check(error, is_sorted(indices), .true.)
+      if (allocated(error)) return
+
+
+   end subroutine test_unsorted_list
 
 end module test_suite1

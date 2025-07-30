@@ -5,9 +5,45 @@ module hs_sort
   integer, parameter, public :: dp = kind(1.0d0)
   private
   public :: hsort, isort, qsort
+  public :: is_sorted
+
 
 
 contains 
+
+   pure function is_sorted(array, reverse) result(sorted)
+      integer, intent(in) :: array(:)
+      logical, intent(in), optional :: reverse
+      logical :: is_reverse
+      logical :: sorted
+
+      sorted = .true.
+      is_reverse = .false.
+
+      if (present(reverse)) then
+         is_reverse = reverse
+      end if
+
+      block
+         integer :: i
+         if (is_reverse) then
+         do i = 1, size(array) - 1
+            if (array(i + 1) > array(i)) then
+               sorted = .false.
+               return
+            end if
+         end do
+         else
+         do i = 1, size(array) - 1
+            if (array(i + 1) < array(i)) then
+               sorted = .false.
+               return
+            end if
+         end do
+         end if
+      end block
+
+   end function is_sorted
 
 subroutine hsort(list, key)
   implicit none
@@ -24,6 +60,8 @@ subroutine hsort(list, key)
   ll = 1
   lr = n
   stktop = 0
+
+  if(.not. is_sorted(list)) error stop "List is not sorted!"
 
   quicksort_done = .false.
 
@@ -124,6 +162,7 @@ subroutine isort(list, key)
   real(dp) :: value
 
   ! Find the index with the minimum key and move it to the front
+  if(.not. is_sorted(list)) error stop "List is not sorted!"
   n = size(list, 1)
   j = 1
   k = list(1)
@@ -162,6 +201,7 @@ subroutine qsort(list, key)
   real(dp) :: guess
   logical :: done
 
+  if(.not. is_sorted(list)) error stop "List is not sorted!"
   ll = 1
   lr = size(list, 1)
   stktop = 0
