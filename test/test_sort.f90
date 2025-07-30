@@ -33,7 +33,7 @@ contains
       key = [17.0_dp, 8.0_dp, 1.0_dp, 3.0_dp, 42.0_dp, 420.0_dp,-17.0_dp, 80.0_dp, 0.0_dp, 10.0_dp]
       indices = [(i, i=1, length)]
 
-      call isort(length, indices, key)
+      call isort(indices, key)
 
       call check(error, all(indices == expected), .true., "Sorting failed!")
       if (allocated(error)) return
@@ -52,7 +52,7 @@ contains
       indices = [(i, i=1, length)]
 
 
-      call qsort(length, indices, key)
+      call qsort(indices, key)
 
       call check(error, all(indices == expected), .true., "Sorting failed!")
       if (allocated(error)) return
@@ -70,7 +70,7 @@ contains
       key = [17.0_dp, 8.0_dp, 1.0_dp, 3.0_dp, 42.0_dp, 420.0_dp,-17.0_dp, 80.0_dp, 0.0_dp, 10.0_dp]
       indices = [(i, i=1, length)]
 
-      call hsort(length, indices, key)
+      call hsort(indices, key)
 
       call check(error, all(indices == expected), .true., "Sorting failed!")
       if (allocated(error)) return
